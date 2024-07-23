@@ -27,13 +27,13 @@ jobs:
       - name: List contents of entire project directory (debugging)
         run: |
           echo "Listing contents of entire project directory:"
-          Get-ChildItem -Recurse -Force
+          Get-ChildItem -Path . -Recurse -Force
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
         with:
           name: node-app
-          path: .next/**/*
+          path: '**/'
 
   deploy:
     runs-on: ubuntu-latest
