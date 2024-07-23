@@ -27,11 +27,21 @@ jobs:
           npm run build --if-present
           npm run test --if-present
 
+      - name: List contents of project directory (debugging)
+        run: |
+          echo "Listing contents of project directory:"
+          ls -al
+
+      - name: List contents of .next directory (debugging)
+        run: |
+          echo "Listing contents of .next directory:"
+          ls -al .next
+
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
         with:
           name: node-app
-          path: .next/standalone
+          path: .next
 
   deploy:
     runs-on: ubuntu-latest
@@ -48,6 +58,11 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: node-app
+
+      - name: Verify downloaded artifact contents
+        run: |
+          echo "Listing contents of downloaded artifact directory:"
+          ls -al node-app
 
       - name: 'Deploy to Azure Web App'
         uses: azure/webapps-deploy@v2
