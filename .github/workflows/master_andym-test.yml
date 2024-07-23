@@ -33,7 +33,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: node-app
-          path: **/*.js  # Adjust the path based on identified build output
+          path: .next
 
   deploy:
     runs-on: ubuntu-latest
