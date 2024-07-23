@@ -29,6 +29,11 @@ jobs:
           echo "Listing contents of project directory:"
           tree /F || dir /S
 
+      - name: List contents of .next directory (debugging)
+        run: |
+          echo "Listing contents of .next directory:"
+          dir .next
+
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
         with:
@@ -45,6 +50,11 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+
+      - name: List available artifacts (Debugging step)
+        run: |
+          echo "Listing available artifacts:"
+          ls -al
 
       - name: Download artifact from build job
         uses: actions/download-artifact@v3
