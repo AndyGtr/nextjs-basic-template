@@ -30,12 +30,12 @@ jobs:
       - name: List contents of project directory (debugging)
         run: |
           echo "Listing contents of project directory:"
-          ls -al
+          dir
 
       - name: List contents of .next directory (debugging)
         run: |
           echo "Listing contents of .next directory:"
-          ls -al .next
+          dir .next
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
@@ -62,14 +62,6 @@ jobs:
       - name: Verify downloaded artifact contents
         run: |
           echo "Listing contents of downloaded artifact directory:"
-          ls -al node-app
+          ls
 
-      - name: 'Deploy to Azure Web App'
-        uses: azure/webapps-deploy@v2
-        id: deploy-to-webapp
-        with:
-          app-name: 'andym-test'
-          slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_857767596DD5486A9F6E04C64B7DC294 }}
-          package: node-app
 
