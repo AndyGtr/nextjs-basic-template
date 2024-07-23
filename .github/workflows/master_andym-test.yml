@@ -29,11 +29,21 @@ jobs:
           echo "Listing contents of project directory:"
           Get-ChildItem -Recurse -Force
 
+      - name: List contents of .next directory (debugging)
+        run: |
+          echo "Listing contents of .next directory:"
+          Get-ChildItem .next -Recurse || echo ".next directory does not exist"
+
+      - name: List contents of .next/standalone directory (debugging)
+        run: |
+          echo "Listing contents of .next/standalone directory:"
+          Get-ChildItem .next/standalone -Recurse || echo ".next/standalone directory does not exist"
+
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
         with:
           name: node-app
-          path: '**/*'
+          path: .next/standalone/**/*
 
   deploy:
     runs-on: ubuntu-latest
