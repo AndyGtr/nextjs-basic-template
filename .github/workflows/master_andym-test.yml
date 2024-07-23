@@ -24,26 +24,16 @@ jobs:
           npm run build --if-present
           npm run test --if-present
 
-      - name: List contents of entire project directory (debugging)
+      - name: List contents of project directory (debugging)
         run: |
-          echo "Listing contents of entire project directory:"
-          Get-ChildItem -Recurse
-
-      - name: List contents of .next directory (debugging)
-        run: |
-          echo "Listing contents of .next directory:"
-          Get-ChildItem .next -Recurse || echo ".next directory does not exist"
-
-      - name: List contents of .next/standalone directory (debugging)
-        run: |
-          echo "Listing contents of .next/standalone directory:"
-          Get-ChildItem .next/standalone -Recurse || echo ".next/standalone directory does not exist"
+          echo "Listing contents of project directory:"
+          Get-ChildItem -Recurse -Force
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
         with:
           name: node-app
-          path: .next/standalone
+          path: '**/*'
 
   deploy:
     runs-on: ubuntu-latest
@@ -63,4 +53,14 @@ jobs:
 
       - name: Verify downloaded artifact contents
         run: |
-        
+          echo "Listing contents of downloaded artifact directory:"
+          ls -al node-app
+
+      - name: 'Deploy to Azure Web App'
+        uses: azure/webapps-deploy@v2
+        id: deploy-to-webapp
+        with:
+          app-name: 'andym-test'
+          slot-name: 'Production'
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_857767596DD5486A9F6E04C64B7DC294 }}
+          package: node-app
