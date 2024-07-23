@@ -24,15 +24,10 @@ jobs:
           npm run build --if-present
           npm run test --if-present
 
-      - name: List contents of project directory (debugging)
+      - name: List contents of entire project directory (debugging)
         run: |
-          echo "Listing contents of project directory:"
+          echo "Listing contents of entire project directory:"
           tree /F || dir /S
-
-      - name: List contents of .next directory (debugging)
-        run: |
-          echo "Listing contents of .next directory:"
-          dir .next
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
@@ -51,11 +46,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: List available artifacts (Debugging step)
-        run: |
-          echo "Listing available artifacts:"
-          ls -al
-
       - name: Download artifact from build job
         uses: actions/download-artifact@v3
         with:
@@ -63,14 +53,4 @@ jobs:
 
       - name: Verify downloaded artifact contents
         run: |
-          echo "Listing contents of downloaded artifact directory:"
-          ls -al node-app
-
-      - name: 'Deploy to Azure Web App'
-        uses: azure/webapps-deploy@v2
-        id: deploy-to-webapp
-        with:
-          app-name: 'andym-test'
-          slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_857767596DD5486A9F6E04C64B7DC294 }}
-          package: node-app
+          ec
