@@ -19,6 +19,11 @@ jobs:
         with:
           submodules: true
           lfs: false
+      - name: create .env file
+        run: |
+          touch .env
+          echo PAYLOAD_SECRET =${{ secrets.PAYLOAD_SECRET }} >> .env
+          
       - name: Build And Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
