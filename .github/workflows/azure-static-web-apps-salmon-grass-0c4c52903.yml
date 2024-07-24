@@ -19,11 +19,17 @@ jobs:
         with:
           submodules: true
           lfs: false
+          
       - name: create .env file
         run: |
           touch .env
           echo PAYLOAD_SECRET =${{ secrets.PAYLOAD_SECRET }} >> .env
           echo DATABASE_URI =${{ secrets.DATABASE_URI }} >> .env
+          
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+         node-version: '18.18.0'
           
       - name: Build And Deploy
         id: builddeploy
