@@ -24,7 +24,6 @@ jobs:
           touch .env
           echo PAYLOAD_SECRET =${{ secrets.PAYLOAD_SECRET }} >> .env
           echo DATABASE_URI =${{ secrets.DATABASE_URI }} | sed 's/ //g' >> .env
-          echo ${{ secrets.DATABASE_URI }} | sed 's/ //g'
           
       - name: Build And Deploy
         id: builddeploy
